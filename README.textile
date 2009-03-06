@@ -31,7 +31,9 @@ h2. Configuration
 
 For now look at example.html and the tests.
 
-h2. Example Configuration Explanation (a "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) blog page with pagination html from "will_paginate":http://wiki.github.com/mislav/will_paginate )
+h2. Example Configuration Explanation 
+
+A "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) blog page with pagination html from "will_paginate":http://wiki.github.com/mislav/will_paginate )
 
 For now look at example.html and the tests.
 
