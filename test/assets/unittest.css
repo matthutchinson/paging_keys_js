@@ -1,0 +1,84 @@
+body { 
+  margin-top: 0; 
+  padding: 0; 
+  background-color: #f0f0f0; 
+  font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana", sans-serif; 
+  font-size: 13px; 
+  color: #333; 
+} 
+
+#content { 
+  margin: 0 auto; 
+  background-color: white; 
+  border: 3px solid #aaa; 
+  border-top: none; 
+  padding: 25px; 
+  width: 700px; 
+} 
+
+#header { 
+  height: 64px; 
+} 
+
+#header h1 { 
+  margin: 0; 
+  font-size: 28px; 
+  color: #800; 
+} 
+
+#header h2 { 
+  margin: 0; 
+  color: #888; 
+  font-weight: normal; 
+  font-size: 16px; 
+} 
+
+ul { 
+  padding: 0; 
+  margin: .5em 0 0 1.25em; 
+} 
+
+li { 
+  padding: .25em 0; 
+  line-height: 1.5em; 
+}
+
+#log {
+  padding-bottom: 1em;
+  border-bottom: 2px solid #000;
+  margin-bottom: 2em;
+}
+
+.logsummary {
+  margin-bottom: 1em;
+  padding: 1ex;
+  border: 1px solid #000;
+  font-weight: bold;
+}
+
+.logtable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px dotted #666;
+}
+
+.logtable td, .logtable th {
+  text-align: left;
+  padding: 3px 8px;
+  border: 1px dotted #666;
+}
+
+.logtable .passed {
+  background-color: #cfc;
+}
+
+.logtable .failed, .logtable .error {
+  background-color: #fcc;
+}
+
+#footer { 
+  margin: 0 auto; 
+  width: 700px; 
+  text-align: center; 
+  color: #aaa; 
+}

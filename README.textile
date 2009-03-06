@@ -1,0 +1,48 @@
+h1. Paging Keys (js)
+
+h2. About
+
+Javascript keyboard short cutting for page navigation e.g. through listings. 
+
+Both scrolling to articles on the current page and paginating through mutliple pages.  Inspired by the interaction on "FFFFOUND!":http://ffffound.com.  The example operates on "micro-formatted": html ("hEntry":).  The script uses the "prototype":http://www.prototypejs.org/ js library and includes code for  "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm key hooks.
+
+h2. Caveats
+
+Ongoing issues with this script include;
+
+* paging_keys_js should be re-written to be a self contained class
+* more testing !
+
+h2. Setup / Using
+
+h3. Requirements
+
+What do you need?
+
+* "prototype":http://www.prototypejs.org/ js library (>= 1.6.0.3)
+* a working keyboard
+* a decent web browser
+
+h3. Using
+
+For now look at example.html and the tests.
+
+h2. Configuration
+
+For now look at example.html and the tests.
+
+h2. Example Configuration Explanation (a "micro-formatted": ("hEntry":) blog page with pagination html from "will_paginate": , a popular rails paging gem)
+
+For now look at example.html and the tests.
+
+h2. Get out clause
+
+This script is provided without warranty, support, or a call center in some far away land. If using this script causes the world to stop rotating, and you get transported _back_ to the Island, it's your own fault.
+
+h2. Credits
+
+Who's who?
+
+* Authored by "Matthew Hutchinson":http://matthewhutchinson.net
+* Inspired by "FFFFOUND!":http://ffffound.com/ keyboard naviagtion
+* Includes "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm

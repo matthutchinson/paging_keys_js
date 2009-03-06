@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript unit test file</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js" type="text/javascript"></script>
+  <script src="assets/unittest.js" type="text/javascript"></script>
+  <script src="../../javascripts/paging_keys.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="assets/unittest.css" type="text/css" />
+</head>
+<body>
+
+<div id="content">
+
+  <div id="header">
+    <h1>JavaScript unit test file</h1>
+    <p>
+      This file tests <strong>paging_keys.js</strong>.
+    </p>
+  </div>
+
+  <!-- Log output (one per Runner, via {testLog: "testlog"} option)-->
+  <div id="testlog"></div>
+  
+  <h1>Test Elements for paging</h1>
+  <!-- Put or load sample/test html here (load via sampleLoad(file) in setup() methods) -->
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="http://localhost:3000/blogs/1/2009/1/6/quia-rerum-aut-aut-sit-voluptates" class="entry-title" id="post-592" rel="bookmark">Quia rerum aut aut sit voluptates</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="http://localhost:3000/blogs/1/2008/12/28/velit-ut-eaque-ducimus-aut-et-aut-quis-autem-quisquam" class="entry-title" id="post-152" rel="bookmark">Velit ut eaque ducimus aut et aut quis autem quisquam</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="http://localhost:3000/blogs/1/2008/12/26/dolorem-voluptates-sit-id-dolores-vel" class="entry-title" id="post-849" rel="bookmark">Dolorem voluptates sit id dolores vel</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="http://localhost:3000/blogs/1/2008/12/20/molestiae-corporis-earum-enim-sapiente-temporibus-culpa-et-in" class="entry-title" id="post-288" rel="bookmark">Molestiae corporis earum enim sapiente temporibus culpa et in</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="http://localhost:3000/blogs/1/2008/12/13/et-vero-qui-cupiditate-fuga-asperiores-est" class="entry-title" id="post-794" rel="bookmark">Et vero qui cupiditate fuga asperiores est</a>
+    </h2>  
+  </div>
+  
+  <p><div class="pagination"><a href="" class="disabled prev_page">&laquo; Previous</a> <span class="current">1</span> <a href="/blogs/1/posts/page/2" rel="next">2</a> <a href="/blogs/1/posts/page/3">3</a> <a href="/blogs/1/posts/page/2" class="next_page" rel="next">Next &raquo;</a></div></p>
+    
+</div>
+
+<script type="text/javascript">
+// <![CDATA[                   
+        
+  // helper methods for tests
+  
+
+  new Test.Unit.Runner({
+    
+    // replace this with your real tests
+    
+    setup: function() {
+      
+    },
+    
+    teardown: function() {
+      
+    },  
+    
+    test_getWindowBounds: function() {
+      with (this) {      
+        var dimensions = getWindowBounds();
+        assertEqual((dimensions.w > 0), true);
+        assertEqual((dimensions.h > 0), true);  
+      }
+    },    
+    
+    test_hot_key_exists: function() {
+      with (this) {      
+        assertEqual((hot_key != null), true);
+      }
+    },
+    
+    test_disable_hotkeys: function() {
+      with (this) {      
+        assertEqual(disable_hot_key, false);
+        disable_hotkeys();
+        assertEqual(disable_hot_key, true);  
+      }
+    },
+    
+    test_item_map_built: function() {
+       with (this) {      
+          assertEqual(item_map.length, 7);    
+          assertEqual(item_map[0].id, 'prev')
+          assertEqual(item_map[1].id, 'post-592')
+          assertEqual(item_map[2].id, 'post-152')
+          assertEqual(item_map[3].id, 'post-849')
+          assertEqual(item_map[4].id, 'post-288')
+          assertEqual(item_map[5].id, 'post-794')
+          assertEqual(item_map[6].id, 'next')    
+          
+          assertEqual((item_map[1].y > 0), true)
+          assertEqual((item_map[2].y > 0), true)
+          assertEqual((item_map[3].y > 0), true)
+          assertEqual((item_map[4].y > 0), true)
+          assertEqual((item_map[5].y > 0), true)
+        }
+    }, 
+    
+    test_adding_to_item_map: function() {
+       with (this) {      
+          assertEqual(item_map.length, 7);
+          add_to_item_map({id: '99999'});              
+          assertEqual(item_map.length, 8);     
+          assertEqual(item_map[item_map.length-1].id, '99999');
+        }
+    },
+    
+    test_get_current_item : function() {
+      // jumps to first item
+      with (this) {  
+       assertEqual(get_current_item(), item_map[0]);
+      };
+    },
+    
+    test_where_am_i : function() {
+      with (this) {       
+       var location_info = where_am_i();
+       assertEqual(location_info.top, 0);
+       assertEqual(location_info.left, 0);
+       assertEqual((location_info.height > 0), true);
+       assertEqual((location_info.clientHeight > 0), true);
+       assertEqual(location_info.is_at_top, true);
+       assertEqual(location_info.is_at_last, true);
+      };  
+    },
+    
+    test_pagination_elements_exist : function() {
+      with (this) {    
+        assertEqual(($$('.next_page')[0].href.length > 0), true);
+        assertEqual(($$('.prev_page')[0].href.length > 0), true);
+        assertEqual($$('.hentry h2 a.entry-title').length, 5);    
+      }
+    }
+      
+  }, {testLog: "testlog"}); 
+// ]]>
+</script>
+</body>
+</html>
