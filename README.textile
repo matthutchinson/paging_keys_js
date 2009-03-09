@@ -27,11 +27,10 @@ h3. Using
 
 In the example, make your browser height small enough to have vertical scrolling, then use j/k to move up/down through listing (and across pagination)  You can also use h/l to move between pages. So;
 
-* *h* previous page
-* *j* previous item
-
-* *k* next item
-* *l* next page
+* h previous page
+* j previous item
+* k next item
+* l next page
 
 Obviously the example has only one page in it right now. So jumping cross pages yields a 404 (will fix this soon).
 
