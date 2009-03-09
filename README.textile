@@ -11,7 +11,7 @@ h2. Caveats
 Ongoing issues with this script include;
 
 * paging_keys_js should be re-written to be a self contained class
-* more testing !
+* more testing on different browsers and to get more coverage
 
 h2. Setup / Using
 
@@ -25,7 +25,15 @@ What do you need?
 
 h3. Using
 
-For now look at example.html and the tests.
+In the example, make your browser height small enough to have vertical scrolling, then use j/k to move up/down through listing (and across pagination)  You can also use h/l to move between pages. So;
+
+* *h* previous page
+* *j* previous item
+
+* *k* next item
+* *l* next page
+
+Obviously the example has only one page in it right now. So jumping cross pages yields a 404 (will fix this soon).
 
 h2. Configuration
 
