@@ -174,8 +174,9 @@ function build_item_map() {
   asset_loaded = false;
   item_map.clear();
 
-  if ($$('.prev_page')[0].href) {
-    item_map.push({id: 'prev', y: 0});
+  if ($$('.prev_page')[0]) {
+	  if($$('.prev_page')[0].href)
+     item_map.push({id: 'prev', y: 0});
   }
   else {
     item_map.push({id: null, y: 0});
@@ -195,8 +196,9 @@ function build_item_map() {
 
   var last = item_map.length - 1;
 
-  if ($$('.next_page')[0].href) {
-    item_map.push({id: 'next', y: document.body.scrollHeight});
+	if($$('.next_page')[0]) {
+  	if($$('.next_page')[0].href)
+    	item_map.push({id: 'next', y: document.body.scrollHeight});
   }
 
   asset_loaded = true;
@@ -311,10 +313,12 @@ function move_page(delta) {
 }
 
 function move_page_next() {
-  if ($$('.next_page')[0].href != null) {
-    redirect($$('.next_page')[0].href);
-    disable_hotkeys();
-    return true;
+	if ($$('.next_page')[0]) {
+  	if ($$('.next_page')[0].href != null) {
+    	redirect($$('.next_page')[0].href);
+    	disable_hotkeys();
+    	return true;
+		}
   }
   else { return false; }
 }

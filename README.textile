@@ -32,17 +32,13 @@ In the example, make your browser height small enough to have vertical scrolling
 * k next item
 * l next page
 
-Obviously the example has only one page in it right now. So jumping cross pages yields a 404 (will fix this soon).
-
-h2. Configuration
-
-For now look at example.html and the tests.
+The example has 4 pages in it. You can use the above keys to move backwards and forwards through the posts.
 
 h2. Example Configuration Explanation 
 
-A "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) blog page with pagination html from "will_paginate":http://wiki.github.com/mislav/will_paginate )
+A "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) blog page with pagination html from "will_paginate":http://wiki.github.com/mislav/will_paginate )  The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.
 
-For now look at example.html and the tests.
+Have a look at the example.html documents and the tests.
 
 h2. Get out clause
 
