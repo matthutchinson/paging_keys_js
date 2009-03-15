@@ -4,7 +4,7 @@ h2. About
 
 Javascript keyboard short cutting for page navigation e.g. through listings. 
 
-Both scrolling to articles on the current page and paginating through mutliple pages.  Inspired by the interaction on "FFFFOUND!":http://ffffound.com.  The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and includes code for  "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm key hooks.
+Both scrolling to articles on the current page and paginating through mutliple pages.  Inspired by the interaction on "FFFFOUND!":http://ffffound.com.  The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and includes code for  "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm key hooks. Take a look "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs at "37 Signals":http://www.37signals.com
 
 h2. Caveats
 
@@ -50,4 +50,5 @@ Who's who?
 
 * Authored by "Matthew Hutchinson":http://matthewhutchinson.net
 * Inspired by "FFFFOUND!":http://ffffound.com/ keyboard naviagtion
+* Explained by "Ryan Singer, 37 Signals":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom
 * Includes "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm
