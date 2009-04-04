@@ -55,4 +55,6 @@ Right now this script is provided without warranty, or support from the author.
 
 h2. Creative Commons License
 
-<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" /></a><br /><span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Paging Keys</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/hiddenloop/paging_keys_js" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" /></a>
+
+<span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Paging Keys</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/hiddenloop/paging_keys_js" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.
