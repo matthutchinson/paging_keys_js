@@ -40,10 +40,6 @@ A "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/w
 
 Have a look at the example.html documents and the tests.
 
-h2. Get out clause
-
-This script is provided without warranty, support, or a call center in some far away land. If using this script causes the world to stop rotating, and you get transported _back_ to the Island, it's your own fault.
-
 h2. Credits
 
 Who's who?
@@ -52,3 +48,11 @@ Who's who?
 * Inspired by "FFFFOUND!":http://ffffound.com/ keyboard naviagtion
 * Explained by "Ryan Singer, 37 Signals":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom
 * Includes "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm
+
+h2. Get out clause
+
+Right now this script is provided without warranty, or support from the author.
+
+h2. Creative Commons License
+
+<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" /></a><br /><span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Paging Keys</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/hiddenloop/paging_keys_js" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.
