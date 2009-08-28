@@ -1,6 +1,8 @@
 /* https://github.com/hiddenloop/paging_keys_js - inspired by navigation on ffffound.com UI */
 /* by Matthew Hutchinson - hiddenloop.com */
 
+pagingKeys.init();
+
 var pagingKeys = function() {
 	
 	var config = {
@@ -256,11 +258,11 @@ var pagingKeys = function() {
     init:init,
 		moveItem:moveItem,
 		movePage:movePage,
-		config:config
+		currentItem:currentItem,
+		config:config,
+		item_map:item_map,
   }
 }();
-
-pagingKeys.init();
 
 
 // Are all the variable and function names logical and easy to understand?

@@ -60,12 +60,10 @@
 <script type="text/javascript">
 // <![CDATA[                   
         
-  // helper methods for tests
+  // helper methods for tests go here
   
 
   new Test.Unit.Runner({
-    
-    // replace this with your real tests
     
     setup: function() {
       
@@ -75,73 +73,30 @@
       
     },  
     
-    test_getWindowBounds: function() {
-      with (this) {      
-        var dimensions = getWindowBounds();
-        assertEqual((dimensions.w > 0), true);
-        assertEqual((dimensions.h > 0), true);  
-      }
-    },    
-    
-    test_hot_key_exists: function() {
-      with (this) {      
-        assertEqual((hot_key != null), true);
-      }
-    },
-    
-    test_disableHotKeys: function() {
-      with (this) {      
-        assertEqual(disable_hot_key, false);
-        disableHotKeys();
-        assertEqual(disable_hot_key, true);  
-      }
-    },
-    
     test_item_map_built: function() {
        with (this) {      
-          assertEqual(item_map.length, 7);    
-          assertEqual(item_map[0].id, 'prev')
-          assertEqual(item_map[1].id, 'post-592')
-          assertEqual(item_map[2].id, 'post-152')
-          assertEqual(item_map[3].id, 'post-849')
-          assertEqual(item_map[4].id, 'post-288')
-          assertEqual(item_map[5].id, 'post-794')
-          assertEqual(item_map[6].id, 'next')    
+          assertEqual(pagingKeys.item_map.length, 7);    
+          assertEqual(pagingKeys.item_map[0].id, 'prev')
+          assertEqual(pagingKeys.item_map[1].id, 'post-592')
+          assertEqual(pagingKeys.item_map[2].id, 'post-152')
+          assertEqual(pagingKeys.item_map[3].id, 'post-849')
+          assertEqual(pagingKeys.item_map[4].id, 'post-288')
+          assertEqual(pagingKeys.item_map[5].id, 'post-794')
+          assertEqual(pagingKeys.item_map[6].id, 'next')    
           
-          assertEqual((item_map[1].y > 0), true)
-          assertEqual((item_map[2].y > 0), true)
-          assertEqual((item_map[3].y > 0), true)
-          assertEqual((item_map[4].y > 0), true)
-          assertEqual((item_map[5].y > 0), true)
+          assertEqual((pagingKeys.item_map[1].y > 0), true)
+          assertEqual((pagingKeys.item_map[2].y > 0), true)
+          assertEqual((pagingKeys.item_map[3].y > 0), true)
+          assertEqual((pagingKeys.item_map[4].y > 0), true)
+          assertEqual((pagingKeys.item_map[5].y > 0), true)
         }
     }, 
     
-    test_adding_to_item_map: function() {
-       with (this) {      
-          assertEqual(item_map.length, 7);
-          add_to_item_map({id: '99999'});              
-          assertEqual(item_map.length, 8);     
-          assertEqual(item_map[item_map.length-1].id, '99999');
-        }
-    },
-    
-    test_get_current_item : function() {
-      // jumps to first item
+    test_current_item : function() {
+      // should be first item
       with (this) {  
-       assertEqual(get_current_item(), item_map[0]);
+       assertEqual(pagingKeys.currentItem(), pagingKeys.item_map[0]);
       };
-    },
-    
-    test_where_am_i : function() {
-      with (this) {       
-       var location_info = where_am_i();
-       assertEqual(location_info.top, 0);
-       assertEqual(location_info.left, 0);
-       assertEqual((location_info.height > 0), true);
-       assertEqual((location_info.clientHeight > 0), true);
-       assertEqual(location_info.is_at_top, true);
-       assertEqual(location_info.is_at_last, true);
-      };  
     },
     
     test_pagination_elements_exist : function() {
