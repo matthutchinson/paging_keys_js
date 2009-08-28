@@ -16,6 +16,8 @@ Ongoing issues with this script include;
 
 * more testing on different browsers
 * more testing coverage in general
+* so far manually tested on the following mac browsers; 
+** Safari 3/4, FireFox 3/3.5, Opera 9+, Camino 1.6.9
 
 h2. Setup / Using
 
@@ -44,7 +46,6 @@ Make your browser height small enough to engage vertical scrolling, then use j/k
 * j previous item
 * k next item
 * l next page
-
 
 h2. Example Configuration Explanation 
 

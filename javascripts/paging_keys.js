@@ -1,3 +1,272 @@
+/* https://github.com/hiddenloop/paging_keys_js - inspired by navigation on ffffound.com UI */
+/* by Matthew Hutchinson - hiddenloop.com */
+
+var pagingKeys = function() {
+	
+	var config = {
+    nodeSelector:        '.hentry h2 a.entry-title',
+    prevPageSelector:    '.prev_page',
+		nextPageSelector:    '.next_page',
+		pagingNavId:         'paging-nav',
+		additionalBodyClass: 'paging-keys'
+  };
+	
+	var item_map        = [];
+	var asset_loaded    = false;
+	var hot_key         = false;
+	var disable_hot_key = false;
+	
+	function init() {
+	  if (Prototype.Browser.MobileSafari) { return; }
+	  $(document).observe('dom:loaded', function() { 
+			var b = this.body;
+			b.className = b.className ? b.className + (' '+config.additionalBodyClass) : config.additionalBodyClass;
+			buildItemMap();
+			positionNav();
+			initHotKeys();
+		});
+		Event.observe(window, 'scroll', function() { positionNav(); })
+	}
+	
+	function buildItemMap() {
+	  asset_loaded = false;
+	  item_map.clear();
+
+	  if ($$(config.prevPageSelector)[0]) {
+		  if($$(config.prevPageSelector)[0].href)
+	     item_map.push({id: 'prev', y: 0});
+	  }
+	  else {
+	    item_map.push({id: null, y: 0});
+	  }
+
+	  var nodes = $$(config.nodeSelector);
+	  for (var i = 0; i < nodes.length; i++) {
+	    var n = nodes[i];
+	    if (n.id.match(/^post/i)) {
+	      addItemToMap(n);
+	    }
+	  }
+
+	  item_map.sort(function(a, b) {
+	    return a.y - b.y;
+	  });
+
+	  var last = item_map.length - 1;
+
+		if($$(config.nextPageSelector)[0]) {
+	  	if($$(config.nextPageSelector)[0].href)
+	    	item_map.push({id: 'next', y: document.body.scrollHeight});
+	  }
+
+	  asset_loaded = true;
+	}
+	
+	function positionNav() {
+		if($(config.pagingNavId))
+			$(config.pagingNavId).setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
+	}
+
+	function initHotKeys() {
+		try {
+		  hot_key = new HotKey();
+		  hot_key.add('r', function() { location.reload(); });
+		}
+		catch (e) { }
+		if (hot_key) {
+		  hot_key.add('j', function() { moveItem(1); });
+		  hot_key.add('k', function() { moveItem(-1); });
+		  hot_key.add('h', function() { movePage(-1); });
+		  hot_key.add('l', function() { movePage(1); });
+		}
+	}
+
+	function getWindowBounds() {
+	  return {
+	    'w': document.viewport.getDimensions()['width'],
+	    'h': document.viewport.getDimensions()['height'],
+	    'x': document.viewport.getScrollOffsets()['left'],
+	    'y': document.viewport.getScrollOffsets()['top']
+	  };
+	}
+
+	function getScrollTop() {
+		return document.viewport.getScrollOffsets()['top']
+	}
+
+	function redirect(href) {
+		/* fix IE */
+	  if (Prototype.Browser.IE) {
+	    var a = document.createElement('a');
+	    a.style.display = 'none';
+	    a.href = href;
+	    document.body.appendChild(a);
+	    a.click();
+	  }
+	  else {
+	    location.href = href;
+	  }
+	}
+
+	function disableHotKeys() {
+	  if (hot_key) {
+	    disable_hot_key = true;
+	    hot_key.remove('j');
+	    hot_key.remove('k');
+	    hot_key.remove('h');
+	    hot_key.remove('l');
+	  }
+	}
+
+	function addItemToMap(n) {
+	  var pos = Position.cumulativeOffset(n);
+	  item_map.push({id: n.id, y: pos[1] - 20});
+	}
+
+	function moveItem(delta, p) {
+	  if (!asset_loaded) {
+	    return false;
+	  }
+
+	  if (p == null) {
+	    p = currentItem(delta);
+	  }
+
+	  var old_y = getScrollTop();
+
+	  if (p) {
+	    if (p.id == 'prev' || p.id == 'next') {
+	      if (p.id == 'next') {
+	        movePageNext();
+	      }
+	      else {
+	        movePagePrev();
+	      }
+	      return false;
+	    }
+
+	    var e = $('post-' + p.id) || $(p.id);
+	    var x = 0, y = 0;
+	    if (e) {
+	      e.focus();
+	      y = p.y;
+	    }
+	    else { y = p.y; }
+
+	    window.scrollTo(x, y);
+
+	    if((delta > 0) && (old_y == getScrollTop())) {
+	      movePage(1);
+	    }
+	  }
+	  return true;
+	}
+
+	function currentItem(delta, y) {
+	  if (y == null) {
+	    y = getScrollTop();
+	  }
+
+	  var p = item_map.length - 1;
+
+	  for (var i = 0; i < item_map.length; i++) {
+	    if (y < item_map[i].y) {
+	      p = i - 1;
+	      break;
+	    }
+	  }
+
+	  if ((delta < 0 && item_map[p] && item_map[p].y == y) || 0 < delta) {
+	    p += delta;
+	  }
+	  else if (getWindowBounds().h + getScrollTop() == document.body.scrollHeight && 0 < delta) {
+	    p++;
+	  }
+
+	  p = Math.max(p, 0);
+	  return item_map[p];
+	}
+
+	function whereAmI() {
+	  var st = document.body.scrollTop;
+	  var sl = document.body.scrollLeft;
+	  var sh = document.body.scrollHeight;
+	  var ch = 0;
+
+	  if (Prototype.Browser.WebKit) {
+	    ch = window.innerHeight;
+	  }
+	  else {
+	    ch = document.body.clientHeight;
+	  }
+
+	  return {
+	    'top': st,
+	    'left': sl,
+	    'height': sh,
+	    'clientHeight': ch,
+	    'is_at_top': st == 0 && sl == 0,
+	    'is_at_last': st + ch == sh && sl == 0
+	  }
+	}
+
+	function movePage(delta) {
+	  var p = whereAmI();
+
+	  if (delta < 0) {
+	    if (p.is_at_top) {
+	      movePagePrev();
+	    }
+	    else {
+	      window.scroll(0, 0);
+	    }
+	  }
+	  else {
+	    if (p.is_at_last) {
+	      movePageNext();
+	    }
+	    else {
+	      window.scroll(0, p.height);
+	    }
+	  }
+	}
+
+	function movePageNext() {
+		if ($$(config.nextPageSelector)[0]) {
+	  	if ($$(config.nextPageSelector)[0].href != null) {
+	    	redirect($$(config.nextPageSelector)[0].href);
+	    	disableHotKeys();
+	    	return true;
+			}
+	  }
+	  else { return false; }
+	}
+
+	function movePagePrev() {
+	  if ($$(config.prevPageSelector)[0].href != null) {
+	    redirect($$(config.prevPageSelector)[0].href+'#bottom');
+	    disableHotKeys();
+	    return true;
+	  }
+	  else { return false; }
+	}
+	
+	// return public pointers to the private methods and properties you want to reveal
+  return {
+    init:init,
+		moveItem:moveItem,
+		movePage:movePage,
+		config:config
+  }
+}();
+
+pagingKeys.init();
+
+
+// Are all the variable and function names logical and easy to understand?
+// Is the code logically structured? Can you "read" it from top to bottom?
+// Are the dependencies obvious?
+// Have you commented areas that might be confusing?
 
 /*  from http://la.ma.la/blog/diary_200511041713.htm - hotkey.js */
 
@@ -74,302 +343,3 @@ HotKey.prototype.remove = function(key){
 		this._keyfunc[key] = function () {};
 	}
 }
-
-
-
-/* paging_keys - item nav and paginate with keyboard navigation - inspired by ffffound.com UI */
-/* amended handling of short items on page (scroll bottom hit before last item hit means advance to next page) - matthewhutchinson.net */
-/* see below for html class name matching on items and prev/next nav links, and script uses (almost) standard jkhl keys */
-
-var item_map = [];
-var asset_loaded = false;
-var hot_key = false;
-var disable_hot_key = false;
-
-function getWindowBounds() {
-	var w, h, x, y;
-  if (Prototype.Browser.Gecko) {
-    var b = document.body;
-    w = b.clientWidth;
-    h = b.clientHeight;
-    x = window.scrollX;
-    y = window.scrollY;
-  }
-  else if (Prototype.Browser.WebKit) {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    x = window.scrollX;
-    y = window.scrollY;
-  }
-  else if (Prototype.Browser.Opera) {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    x = window.pageXOffset;
-    y = window.pageYOffset;
-  }
-  else {
-    var d = document.documentElement;
-    var b = document.body;
-    w = d.clientWidth  ? d.clientWidth  : b.clientWidth  ? b.clientWidth  : 0;
-    h = d.clientHeight ? d.clientHeight : b.clientHeight ? b.clientHeight : 0;
-    x = d.scrollLeft   ? d.scrollLeft   : b.scrollLeft   ? b.scrollLeft   : 0;
-    y = d.scrollTop    ? d.scrollTop    : b.scrollTop    ? b.scrollTop    : 0;
-  }
-  return {
-    'w': w,
-    'h': h,
-    'x': x,
-    'y': y
-  };
-}
-
-function getScrollTop() {
-  return window.pageYOffset
-    || document.documentElement.scrollTop
-    || document.body.scrollTop
-    || 0;
-}
-
-/* fix for IE redirection */
-function redirect(href) {
-  if (Prototype.Browser.IE) {
-    var a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = href;
-    document.body.appendChild(a);
-    a.click();
-  }
-  else {
-    location.href = href;
-  }
-}
-
-try {
-  hot_key = new HotKey();
-  hot_key.add('r', function() { location.reload(); });
-  hot_key.add('e', function() { location.href = '/'; });
-}
-catch (e) { }
-
-if (hot_key) {
-  hot_key.add('j', function() { move_item(1); });
-  hot_key.add('k', function() { move_item(-1); });
-  hot_key.add('h', function() { move_page(-1); });
-  hot_key.add('l', function() { move_page(1); });
-}
-
-function disable_hotkeys() {
-  if (hot_key) {
-    disable_hot_key = true;
-    hot_key.remove('j');
-    hot_key.remove('k');
-    hot_key.remove('h');
-    hot_key.remove('l');
-  }
-}
-
-function add_to_item_map(n) {
-  var pos = Position.cumulativeOffset(n);
-  item_map.push({id: n.id, y: pos[1] - 20});
-}
-
-function build_item_map() {
-  asset_loaded = false;
-  item_map.clear();
-
-  if ($$('.prev_page')[0]) {
-	  if($$('.prev_page')[0].href)
-     item_map.push({id: 'prev', y: 0});
-  }
-  else {
-    item_map.push({id: null, y: 0});
-  }
-
-  var nodes = $$('.hentry h2 a.entry-title');
-  for (var i = 0; i < nodes.length; i++) {
-    var n = nodes[i];
-    if (n.id.match(/^post/i)) {
-      add_to_item_map(n);
-    }
-  }
-
-  item_map.sort(function(a, b) {
-    return a.y - b.y;
-  });
-
-  var last = item_map.length - 1;
-
-	if($$('.next_page')[0]) {
-  	if($$('.next_page')[0].href)
-    	item_map.push({id: 'next', y: document.body.scrollHeight});
-  }
-
-  asset_loaded = true;
-}
-
-function move_item(delta, p) {
-  if (!asset_loaded) {
-    return false;
-  }
-
-  if (p == null) {
-    p = get_current_item(delta);
-  }
-
-  var old_y = getScrollTop();
-
-  if (p) {
-    if (p.id == 'prev' || p.id == 'next') {
-      if (p.id == 'next') {
-        move_page_next();
-      }
-      else {
-        move_page_prev();
-      }
-      return false;
-    }
-
-    var e = $('post-' + p.id) || $(p.id);
-    var x = 0, y = 0;
-    if (e) {
-      e.focus();
-      y = p.y;
-    }
-    else { y = p.y; }
-
-    window.scrollTo(x, y);
-    
-    if((delta > 0) && (old_y == getScrollTop())) {
-      move_page(1);
-    }
-  }
-  return true;
-}
-
-function get_current_item(delta, y) {
-  if (y == null) {
-    y = getScrollTop();
-  }
-
-  var p = item_map.length - 1;
-
-  for (var i = 0; i < item_map.length; i++) {
-    if (y < item_map[i].y) {
-      p = i - 1;
-      break;
-    }
-  }
-
-  if ((delta < 0 && item_map[p] && item_map[p].y == y) || 0 < delta) {
-    p += delta;
-  }
-  else if (getWindowBounds().h + getScrollTop() == document.body.scrollHeight && 0 < delta) {
-    p++;
-  }
-
-  p = Math.max(p, 0);
-  return item_map[p];
-}
-
-function where_am_i() {
-  var st = document.body.scrollTop;
-  var sl = document.body.scrollLeft;
-  var sh = document.body.scrollHeight;
-  var ch = 0;
-
-  if (Prototype.Browser.WebKit) {
-    ch = window.innerHeight;
-  }
-  else {
-    ch = document.body.clientHeight;
-  }
-
-  return {
-    'top': st,
-    'left': sl,
-    'height': sh,
-    'clientHeight': ch,
-    'is_at_top': st == 0 && sl == 0,
-    'is_at_last': st + ch == sh && sl == 0
-  }
-}
-
-function move_page(delta) {
-  var p = where_am_i();
-
-  if (delta < 0) {
-    if (p.is_at_top) {
-      move_page_prev();
-    }
-    else {
-      window.scroll(0, 0);
-    }
-  }
-  else {
-    if (p.is_at_last) {
-      move_page_next();
-    }
-    else {
-      window.scroll(0, p.height);
-    }
-  }
-}
-
-function move_page_next() {
-	if ($$('.next_page')[0]) {
-  	if ($$('.next_page')[0].href != null) {
-    	redirect($$('.next_page')[0].href);
-    	disable_hotkeys();
-    	return true;
-		}
-  }
-  else { return false; }
-}
-
-function move_page_prev() {
-  if ($$('.prev_page')[0].href != null) {
-    redirect($$('.prev_page')[0].href+'#bottom');
-    disable_hotkeys();
-    return true;
-  }
-  else { return false; }
-}
-
-function repositionNav() {
-	if($('paging-nav'))
-		$('paging-nav').setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
-}
-
-function initAssetsPage() {
-  if (Prototype.Browser.MobileSafari) { return; }
-  $(document).observe('dom:loaded', function() { 
-		var b = this.body;
-		b.className = b.className ? b.className + ' paging-js' : 'paging-js';
-		build_item_map();
-		repositionNav();
-	});
-	
-	Event.observe(window, 'scroll', function() { repositionNav(); })
-}
-
-initAssetsPage();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

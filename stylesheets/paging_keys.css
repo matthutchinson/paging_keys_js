@@ -1,3 +1,15 @@
+body {
+	color:#222;
+	font-family:Georgia,serif;
+	font-size:16px;
+	line-height:1.3em;
+}
+
+/* show/hide paging help keys if js available, paging-keys class gets to body by javascript */
+body.paging-keys #paging-nav {
+	display:block;
+}
+
 #paging-nav {
 	background:rgba(180,180,180,0.25);
 	font-size:14px;
@@ -7,10 +19,20 @@
 	display:none;
 }
 
-/* show/hide paging help keys if js available, paging-js class gets added by paging-keys javascript */
-body.paging-js #paging-nav {
-	display:block;
+/* styles for demo purposes only */
+.pagination {
+	text-align:center;
+	background:#F7F7F7;
+	border-top:1px solid #AAA;
+	border-bottom:1px solid #AAA;
+	padding:2em 0;
+	font-size:1.1em;
+	font-weight:bold;
+}
+.pagination a, .pagination span {
+	padding:0.5em;
 }
 
-/* for demo purposes only */
-.hentry { padding-bottom:16em; }
+.hentry {
+	padding-bottom:16em;
+}
