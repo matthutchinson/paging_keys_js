@@ -1,0 +1,16 @@
+#paging-nav {
+	background:rgba(180,180,180,0.25);
+	font-size:14px;
+	padding:10px 20px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	display:none;
+}
+
+/* show/hide paging help keys if js available, paging-js class gets added by paging-keys javascript */
+body.paging-js #paging-nav {
+	display:block;
+}
+
+/* for demo purposes only */
+.hentry { padding-bottom:16em; }

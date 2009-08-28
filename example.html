@@ -4,9 +4,7 @@
   <title>Paging Keys - Example Usage</title>
   <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js" type="text/javascript"></script>
   <script src="javascripts/paging_keys.js" type="text/javascript"></script>
-  <style type="text/css" media="screen">
-    .hentry { padding-bottom:10em; }
-  </style>
+  <link type="text/css" rel="stylesheet" href="stylesheets/paging_keys.css">
 </head>
 <body>
   <h1>Paging Keys - Example Usage <em>(page 1)</em></h1>
@@ -18,23 +16,27 @@
     <p><object width="400" height="251"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2291902&amp;server=vimeo.com&amp;show_title=1&amp;autoplay=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2291902&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;autoplay=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="400" height="251"></embed></object></p>
     <p>-- video source: <a href="http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom">Ryan Singer, 37signals</a></p>
     
-    <p>This is a four page example. CSS over-sizes the spacing between hEntry elements to demonstrate the script (which works when vertical scrolling exists). Thanks to <a href="http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom">Ryan Singer, 37signals</a> for the video above.</p>
+    <p>This is a four page example.</p>
+    <p><a href="stylesheets/paging_keys.css" target="css_source">CSS</a> over-sizes the spacing between hEntry elements to demonstrate the script (which is more obvious when vertical scrolling exists in the viewport).</p>
+    <p>Thanks to <a href="http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom">Ryan Singer, 37signals</a> for the video above.</p>
     <ul>
-      <li>Use <strong>j/k</strong> to move up/down through listing (and across pagination)</li>
+      <li>Use <strong>j/k</strong> to move up/down through hentry items in the listing (this will also advance you to the next/previous page)</li>
       <li>You can also use <strong>h/l</strong> to move between pages.</li>
+      <li>The paging navigation element 'paging-nav' is positioned using javascript at the top of the page, it is entirely optional.</li>
+      <li>The <a href="stylesheets/paging_keys.css" target="css_source">CSS</a> file is only used to style this 'paging-nav' element, so like I said, its optional</p>
     </ul>
     <em>(p.s. the following example has been brought to you by 1960&rsquo;s Batman!)</em>
   </div>
   
   <div class="hentry">                                                                                                                
     <h2>
-      <a href="#" class="entry-title" id="post-592" rel="bookmark">Robin: &quot;You can&rsquo;t get away from Batman that easy!&quot;</a>
+      <a href="#" class="entry-title" id="post-590" rel="bookmark">Robin: &quot;You can&rsquo;t get away from Batman that easy!&quot;</a>
     </h2>
   </div>
 
   <div class="hentry">                                                                                                                
     <h2>
-      <a href="#" class="entry-title" id="post-592" rel="bookmark">Batman: &quot;Easily.&quot;</a>
+      <a href="#" class="entry-title" id="post-591" rel="bookmark">Batman: &quot;Easily.&quot;</a>
     </h2>
   </div>
 
@@ -46,23 +48,42 @@
 
   <div class="hentry">                                                                                                                
     <h2>
-      <a href="#" class="entry-title" id="post-592" rel="bookmark">Batman: &quot;Good grammar is essential, Robin.&quot; </a>
+      <a href="#" class="entry-title" id="post-593" rel="bookmark">Batman: &quot;Good grammar is essential, Robin.&quot; </a>
     </h2>
   </div>
 
   <div class="hentry">                                                                                                                
     <h2>
-      <a href="#" class="entry-title" id="post-592" rel="bookmark">Robin: &quot;Thank you.&quot;</a>
+      <a href="#" class="entry-title" id="post-594" rel="bookmark">Robin: &quot;Thank you.&quot;</a>
     </h2>
   </div>
   
   <div class="hentry">                                                                                                                
     <h2>
-      <a href="#" name="bottom" class="entry-title" id="post-592" rel="bookmark">Batman: &quot;You&rsquo;re welcome.&quot;</a>
+      <a href="#" name="bottom" class="entry-title" id="post-595" rel="bookmark">Batman: &quot;Your mother wore army shoes!&quot;</a>
+    </h2>
+  </div>
+  
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" name="bottom" class="entry-title" id="post-595" rel="bookmark">Batman: &quot;Yes, she did. As I recall, she found them quite comfortable.&quot;</a>
+    </h2>
+  </div>
+  
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" name="bottom" class="entry-title" id="post-595" rel="bookmark">Batman: &quot;Stand up, Shame! You're not worthy of the name Shame, you're a sham, Shame! Don't ever cry on my tights or pull my leg again.&quot;</a>
     </h2>
   </div>
   
   <p><div class="pagination"><span class="current">1</span> <a href="example_page_2.html" rel="next">2</a> <a href="example_page_3.html">3</a> <a href="example_page_4.html">4</a> <a href="example_page_2.html" class="next_page" rel="next">Next &raquo;</a></div></p>
+
+  <div id="paging-nav">
+    <a onclick="move_item(-1); return false;" href="javascript:void(0);">prev (j)</a> |
+    <a onclick="move_item(1); return false;" href="javascript:void(0);">next (k)</a> |
+    <a onclick="move_page(-1); return false;" href="javascript:void(0);">page (h)</a> |
+    <a onclick="move_page(1); return false;" href="javascript:void(0);">page (l)</a>
+  </div>
 
 </body>
 </html>

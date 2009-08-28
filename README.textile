@@ -2,16 +2,20 @@ h1. Paging Keys (js) - Refactor Branch
 
 h2. About
 
-Javascript keyboard short cutting for page navigation e.g. through listings. 
+Keyboard short cuts for paging through listings one item at at time (and across entire pages).  Inspired by the navigation at "FFFFOUND!":http://ffffound.com/
 
-Both scrolling to articles on the current page and paginating through mutliple pages.  Inspired by the interaction on "FFFFOUND!":http://ffffound.com.  The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and includes code for  "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm key hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
+The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and uses "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
+
+h2. "Demo":http://homebrew.hiddenloop.com/paging_keys/example.html
+
+Holy explanations Batman!, i've found a "working demo here":http://hiddenloop.com/sandbox/paging_keys/example.html
 
 h2. Caveats
 
 Ongoing issues with this script include;
 
-* paging_keys_js should be re-written to be a self contained class
-* more testing on different browsers and to get more coverage
+* more testing on different browsers
+* more testing coverage in general
 
 h2. Setup / Using
 
@@ -19,26 +23,34 @@ h3. Requirements
 
 What do you need?
 
-* "prototype":http://www.prototypejs.org/ js library (>= 1.6.0.3)
-* a working keyboard
-* a decent web browser
+* "prototype":http://www.prototypejs.org/ javascript library (>= 1.6.0.3)
+* a working keyboard and browser
+* for the example - a sense of "1970's Batman humor":http://adamwest.tripod.com/b-lectur.htm
 
 h3. Using
 
-In the example, make your browser height small enough to have vertical scrolling, then use j/k to move up/down through listing (and across pagination)  You can also use h/l to move between pages. So;
+To use on your own website, simply;
+
+* markup your entry titles with the following css heirachy; .hentry h2 a.entry-title (the example uses the "hAtom":http://microformats.org/wiki/hatom style)
+* include the prototype library javascript
+* include the paging_keys.js javascript somewhere on your page
+* add pagination html to each page as shown in the example (in "Rails":http://rubyonrails.org/, if you're using "will_paginate":http://wiki.github.com/mislav/will_paginate, you'll get this for free)
+* optionally add the paging-nav element somewhere on each page, and include the css for it
+* thats it! 
+
+Make your browser height small enough to engage vertical scrolling, then use j/k to move up/down through listing (and across pagination).  You can also use h/l to move between pages. So;
 
 * h previous page
 * j previous item
 * k next item
 * l next page
 
-The example has 4 pages in it. You can use the above keys to move backwards and forwards through the posts.
 
 h2. Example Configuration Explanation 
 
-A "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) blog page with pagination html from "will_paginate":http://wiki.github.com/mislav/will_paginate )  The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.
+Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner of the page (when javascript is available).  In the example, the "prototype":http://www.prototypejs.org/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
 
-Have a look at the example.html documents and the tests.
+Have a look at the example html documents and the tests for more information.
 
 h2. Credits
 
@@ -48,6 +60,7 @@ Who's who?
 * Inspired by "FFFFOUND!":http://ffffound.com/ keyboard naviagtion
 * Explained by "Ryan Singer, 37 Signals":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom
 * Includes "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm
+* Wise words followed from "7 Rules of Unobtrusive Javascript":http://icant.co.uk/articles/seven-rules-of-unobtrusive-javascript/
 
 h2. Get out clause
 

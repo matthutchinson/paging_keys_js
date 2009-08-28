@@ -1,4 +1,3 @@
-
 /*  from http://la.ma.la/blog/diary_200511041713.htm - hotkey.js */
 
 function HotKey(element){
@@ -75,8 +74,6 @@ HotKey.prototype.remove = function(key){
 	}
 }
 
-
-
 /* paging_keys - item nav and paginate with keyboard navigation - inspired by ffffound.com UI */
 /* amended handling of short items on page (scroll bottom hit before last item hit means advance to next page) - matthewhutchinson.net */
 /* see below for html class name matching on items and prev/next nav links, and script uses (almost) standard jkhl keys */
@@ -87,7 +84,7 @@ var hot_key = false;
 var disable_hot_key = false;
 
 function getWindowBounds() {
-	var w, h, x, y;
+  var w, h, x, y;
   if (Prototype.Browser.Gecko) {
     var b = document.body;
     w = b.clientWidth;
@@ -335,41 +332,9 @@ function move_page_prev() {
   else { return false; }
 }
 
-function repositionNav() {
-	if($('paging-nav'))
-		$('paging-nav').setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
-}
-
 function initAssetsPage() {
-  if (Prototype.Browser.MobileSafari) { return; }
-  $(document).observe('dom:loaded', function() { 
-		var b = this.body;
-		b.className = b.className ? b.className + ' paging-js' : 'paging-js';
-		build_item_map();
-		repositionNav();
-	});
-	
-	Event.observe(window, 'scroll', function() { repositionNav(); })
+    if (Prototype.Browser.MobileSafari) { return; }
+    $(document).observe('dom:loaded', function() { build_item_map(); });
 }
 
 initAssetsPage();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
