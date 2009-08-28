@@ -1,4 +1,4 @@
-h1. Paging Keys (js) - Refactor Branch
+h1. Paging Keys (js)
 
 h2. About
 
