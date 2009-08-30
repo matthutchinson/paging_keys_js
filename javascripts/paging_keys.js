@@ -80,12 +80,19 @@ HotKey.prototype.remove = function(key){
 
 var pagingKeys = function() {
 	
+	// nodeSelector must be a link (since href used)
 	var config = {
     nodeSelector:        '.hentry h2 a.entry-title',
     prevPageSelector:    '.prev_page',
 		nextPageSelector:    '.next_page',
 		pagingNavId:         'paging-nav',
-		additionalBodyClass: 'paging-keys'
+		keyNext:             'j',
+		keyPrev:             'k',
+		keyNextPage:         'h',
+		keyPrevPage:         'l',
+		keyRefresh:          'r',
+		additionalBodyClass: 'paging-keys',
+		bottomAnchor:        '#bottom'
   };
 	
 	var item_map        = [];
@@ -93,6 +100,7 @@ var pagingKeys = function() {
 	var hot_key         = false;
 	var disable_hot_key = false;
 	
+	// TODO: escape other incompatible browsers
 	function init() {
 	  if (Prototype.Browser.MobileSafari) { return; }
 	  $(document).observe('dom:loaded', function() { 
@@ -105,6 +113,7 @@ var pagingKeys = function() {
 		Event.observe(window, 'scroll', function() { positionNav(); })
 	}
 	
+	// 'prev' and 'next' are used to identify items and their position in the map
 	function buildItemMap() {
 	  asset_loaded = false;
 	  item_map.clear();
@@ -113,48 +122,54 @@ var pagingKeys = function() {
 		  if($$(config.prevPageSelector)[0].href)
 	     item_map.push({id: 'prev', y: 0});
 	  }
-	  else {
+	  else
 	    item_map.push({id: null, y: 0});
-	  }
 
 	  var nodes = $$(config.nodeSelector);
 	  for (var i = 0; i < nodes.length; i++) {
 	    var n = nodes[i];
-	    if (n.id.match(/^post/i)) {
+	    if (n.id.match(/^post/i))
 	      addItemToMap(n);
-	    }
 	  }
-
+    // sort based on page Y postion
 	  item_map.sort(function(a, b) {
 	    return a.y - b.y;
 	  });
 
 	  var last = item_map.length - 1;
-
 		if($$(config.nextPageSelector)[0]) {
 	  	if($$(config.nextPageSelector)[0].href)
 	    	item_map.push({id: 'next', y: document.body.scrollHeight});
 	  }
-
 	  asset_loaded = true;
 	}
 	
+	function addItemToMap(n) {
+	  var pos = Position.cumulativeOffset(n);
+	  item_map.push({id: n.id, y: pos[1] - 20});
+	}
+	
+	// optional, repositioning of the floating navigation element
 	function positionNav() {
 		if($(config.pagingNavId))
 			$(config.pagingNavId).setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
 	}
 
+  // enable hotkeys
 	function initHotKeys() {
 		try {
 		  hot_key = new HotKey();
-		  hot_key.add('r', function() { location.reload(); });
 		}
-		catch (e) { }
+		catch (e) { 
+		  alert('Oops, paging_keys requires HotKeys.js (http://la.ma.la/blog/diary_200511041713.htm)');
+		  alert(e);
+		}
 		if (hot_key) {
-		  hot_key.add('j', function() { moveItem(1); });
-		  hot_key.add('k', function() { moveItem(-1); });
-		  hot_key.add('h', function() { movePage(-1); });
-		  hot_key.add('l', function() { movePage(1); });
+		  hot_key.add(config.keyNext, function() { moveToItem(1); });
+		  hot_key.add(config.keyPrev, function() { moveToItem(-1); });
+		  hot_key.add(config.keyNextPage, function() { movePage(1); });
+		  hot_key.add(config.keyPrevPage, function() { movePage(-1); });
+		  hot_key.add(config.keyRefresh, function() { location.reload(); });
 		}
 	}
 
@@ -188,37 +203,27 @@ var pagingKeys = function() {
 	function disableHotKeys() {
 	  if (hot_key) {
 	    disable_hot_key = true;
-	    hot_key.remove('j');
-	    hot_key.remove('k');
-	    hot_key.remove('h');
-	    hot_key.remove('l');
+	    hot_key.remove(config.keyNext);
+	    hot_key.remove(config.keyPrev);
+	    hot_key.remove(config.keyNextPage);
+	    hot_key.remove(config.keyPrevPage);
 	  }
 	}
 
-	function addItemToMap(n) {
-	  var pos = Position.cumulativeOffset(n);
-	  item_map.push({id: n.id, y: pos[1] - 20});
-	}
-
-	function moveItem(delta, p) {
-	  if (!asset_loaded) {
+	function moveToItem(delta, p) {
+	  if (!asset_loaded)
 	    return false;
-	  }
 
-	  if (p == null) {
+	  if (p == null)
 	    p = currentItem(delta);
-	  }
-
 	  var old_y = getScrollTop();
 
 	  if (p) {
 	    if (p.id == 'prev' || p.id == 'next') {
-	      if (p.id == 'next') {
+	      if (p.id == 'next')
 	        movePageNext();
-	      }
-	      else {
+	      else
 	        movePagePrev();
-	      }
 	      return false;
 	    }
 
@@ -229,23 +234,20 @@ var pagingKeys = function() {
 	      y = p.y;
 	    }
 	    else { y = p.y; }
-
+	    
 	    window.scrollTo(x, y);
 
-	    if((delta > 0) && (old_y == getScrollTop())) {
+	    if((delta > 0) && (old_y == getScrollTop()))
 	      movePage(1);
-	    }
 	  }
 	  return true;
 	}
 
 	function currentItem(delta, y) {
-	  if (y == null) {
+	  if (y == null)
 	    y = getScrollTop();
-	  }
 
 	  var p = item_map.length - 1;
-
 	  for (var i = 0; i < item_map.length; i++) {
 	    if (y < item_map[i].y) {
 	      p = i - 1;
@@ -253,58 +255,50 @@ var pagingKeys = function() {
 	    }
 	  }
 
-	  if ((delta < 0 && item_map[p] && item_map[p].y == y) || 0 < delta) {
+	  if ((delta < 0 && item_map[p] && item_map[p].y == y) || 0 < delta)
 	    p += delta;
-	  }
-	  else if (getWindowBounds().h + getScrollTop() == document.body.scrollHeight && 0 < delta) {
+	  else if (getWindowBounds().h + getScrollTop() == document.body.scrollHeight && 0 < delta)
 	    p++;
-	  }
 
 	  p = Math.max(p, 0);
 	  return item_map[p];
 	}
 
+  // determine current position in the document based on viewport and scrolling
 	function whereAmI() {
 	  var st = document.body.scrollTop;
 	  var sl = document.body.scrollLeft;
 	  var sh = document.body.scrollHeight;
 	  var ch = 0;
 
-	  if (Prototype.Browser.WebKit) {
+	  if (Prototype.Browser.WebKit)
 	    ch = window.innerHeight;
-	  }
-	  else {
+	  else
 	    ch = document.body.clientHeight;
-	  }
 
 	  return {
-	    'top': st,
-	    'left': sl,
-	    'height': sh,
-	    'clientHeight': ch,
-	    'is_at_top': st == 0 && sl == 0,
-	    'is_at_last': st + ch == sh && sl == 0
+      'top': st,
+      'left': sl,
+      'height': sh,
+      'clientHeight': ch,
+      'is_at_top': st == 0 && sl == 0,
+      'is_at_last': st + ch == sh && sl == 0
 	  }
 	}
 
 	function movePage(delta) {
 	  var p = whereAmI();
-
 	  if (delta < 0) {
-	    if (p.is_at_top) {
+	    if (p.is_at_top)
 	      movePagePrev();
-	    }
-	    else {
+	    else
 	      window.scroll(0, 0);
-	    }
 	  }
 	  else {
-	    if (p.is_at_last) {
+	    if (p.is_at_last)
 	      movePageNext();
-	    }
-	    else {
+	    else
 	      window.scroll(0, p.height);
-	    }
 	  }
 	}
 
@@ -321,7 +315,7 @@ var pagingKeys = function() {
 
 	function movePagePrev() {
 	  if ($$(config.prevPageSelector)[0].href != null) {
-	    redirect($$(config.prevPageSelector)[0].href+'#bottom');
+	    redirect($$(config.prevPageSelector)[0].href+config.bottomAnchor);
 	    disableHotKeys();
 	    return true;
 	  }
@@ -331,17 +325,12 @@ var pagingKeys = function() {
 	// return public pointers to the private methods and properties you want to reveal
   return {
     init:init,
-		moveItem:moveItem,
-		movePage:movePage,
-		currentItem:currentItem,
-		config:config,
-		item_map:item_map,
+    moveToItem:moveToItem,
+    movePage:movePage,
+    currentItem:currentItem,
+    config:config,
+    item_map:item_map
   }
 }();
-
-// Are all the variable and function names logical and easy to understand?
-// Is the code logically structured? Can you "read" it from top to bottom?
-// Are the dependencies obvious?
-// Have you commented areas that might be confusing?
 
 pagingKeys.init();
