@@ -103,8 +103,8 @@ var pagingKeys = function() {
 	// TODO: escape other incompatible browsers
 	function init() {
 	  if (Prototype.Browser.MobileSafari) { return; }
-	  $(document).observe('dom:loaded', function() { 
-			var b = this.body;
+	  Event.observe(window, 'load', function() { 
+			var b = document.body;
 			b.className = b.className ? b.className + (' '+config.additionalBodyClass) : config.additionalBodyClass;
 			buildItemMap();
 			positionNav();
@@ -127,9 +127,7 @@ var pagingKeys = function() {
 
 	  var nodes = $$(config.nodeSelector);
 	  for (var i = 0; i < nodes.length; i++) {
-	    var n = nodes[i];
-	    if (n.id.match(/^post/i))
-	      addItemToMap(n);
+      addItemToMap(nodes[i]);
 	  }
     // sort based on page Y postion
 	  item_map.sort(function(a, b) {
@@ -226,16 +224,7 @@ var pagingKeys = function() {
 	        movePagePrev();
 	      return false;
 	    }
-
-			var e = $('post-' + p.id) || $(p.id);
-			var x = 0, y = 0;
-			if (e) {
-			  e.focus();
-			  y = p.y;
-			}
-			else { y = p.y; }
-
-	    window.scrollTo(x, y);
+			window.scrollTo(0, p.y);
 
 	    if((delta > 0) && (old_y == getScrollTop()))
 	      movePage(1);
