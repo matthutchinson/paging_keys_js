@@ -80,19 +80,19 @@ HotKey.prototype.remove = function(key){
 
 var pagingKeys = function() {
 	
-	// nodeSelector must be a link (since href used)
+	// nodeSelector,prevPageSelector,nextPageSelector must be a link (since href used)
 	var config = {
-    nodeSelector:        '.hentry h2 a.entry-title',
-    prevPageSelector:    '.prev_page',
-		nextPageSelector:    '.next_page',
-		pagingNavId:         'paging-nav',
-		keyNext:             'j',
+    nodeSelector:        '.hentry h2 a.entry-title',  // used to select each item on the page and place in the map
+    prevPageSelector:    '.prev_page',                // link on this element should always jump to prev page a.prev_page
+		nextPageSelector:    '.next_page',                // link on this element should always jump to next page a.next_page
+		pagingNavId:         'paging-nav',                // dom id of the floating page navigation element
+		keyNext:             'j',                         // hot keys used 
 		keyPrev:             'k',
 		keyNextPage:         'h',
 		keyPrevPage:         'l',
 		keyRefresh:          'r',
-		additionalBodyClass: 'paging-keys',
-		bottomAnchor:        '#bottom'
+		additionalBodyClass: 'paging-keys',               // this class is assigned to the page body on load
+		bottomAnchor:        'bottom'                     // the name of the anchor (without #) at end of page, e.g. set on last post on the page
   };
 	
 	var item_map        = [];
@@ -227,14 +227,7 @@ var pagingKeys = function() {
 	      return false;
 	    }
 
-	    var e = $('post-' + p.id) || $(p.id);
-	    var x = 0, y = 0;
-	    if (e) {
-	      e.focus();
-	      y = p.y;
-	    }
-	    else { y = p.y; }
-	    
+	    var x = 0, y = p.y;
 	    window.scrollTo(x, y);
 
 	    if((delta > 0) && (old_y == getScrollTop()))
@@ -315,7 +308,7 @@ var pagingKeys = function() {
 
 	function movePagePrev() {
 	  if ($$(config.prevPageSelector)[0].href != null) {
-	    redirect($$(config.prevPageSelector)[0].href+config.bottomAnchor);
+	    redirect($$(config.prevPageSelector)[0].href+'#'+config.bottomAnchor);
 	    disableHotKeys();
 	    return true;
 	  }

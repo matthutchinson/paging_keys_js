@@ -1,14 +1,14 @@
-h1. Paging Keys (js)
+h1. Paging Keys
 
 h2. About
 
 Keyboard short cuts for paging through listings one item at at time (and across entire pages).  Inspired by the navigation at "FFFFOUND!":http://ffffound.com/
 
-The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and uses "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
+The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
 
 h2. "Demo":http://homebrew.hiddenloop.com/paging_keys/example.html
 
-Holy explanations Batman!, i've found a "working demo here":http://hiddenloop.com/sandbox/paging_keys/example.html
+Holy explanations Batman!, there is a "working demo here":http://hiddenloop.com/sandbox/paging_keys/example.html
 
 h2. Caveats
 
@@ -16,6 +16,8 @@ Ongoing issues with this script include;
 
 * more testing on different browsers
 * more testing coverage in general
+* only works with prototype library right now (happy to accept patches for others)
+* there are some places where CSS id selectors would suit better over class selectors
 * so far manually tested on the following mac browsers; 
 ** Safari 3/4, FireFox 3/3.5, Opera 9+, Camino 1.6.9
 
@@ -26,6 +28,7 @@ h3. Requirements
 What do you need?
 
 * "prototype":http://www.prototypejs.org/ javascript library (>= 1.6.0.3)
+* "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm (included in paging_keys.js)
 * a working keyboard and browser
 * for the example - a sense of "1970's Batman humor":http://adamwest.tripod.com/b-lectur.htm
 
@@ -33,11 +36,11 @@ h3. Using
 
 To use on your own website, simply;
 
-* markup your entry titles with the following css heirachy; .hentry h2 a.entry-title (the example uses the "hAtom":http://microformats.org/wiki/hatom style)
-* include the prototype library javascript
+* markup your entry titles with the following CSS hierarchy; .hentry h2 a.entry-title (the example uses the "hAtom":http://microformats.org/wiki/hatom style)
+* include the prototype library javascript (e.g. from "ajax.googleapis.com":http://code.google.com/apis/ajax/)
 * include the paging_keys.js javascript somewhere on your page
 * add pagination html to each page as shown in the example (in "Rails":http://rubyonrails.org/, if you're using "will_paginate":http://wiki.github.com/mislav/will_paginate, you'll get this for free)
-* optionally add the paging-nav element somewhere on each page, and include the css for it
+* optionally add the paging-nav element somewhere on each page, and include the CSS for it
 * thats it! 
 
 Make your browser height small enough to engage vertical scrolling, then use j/k to move up/down through listing (and across pagination).  You can also use h/l to move between pages. So;
@@ -47,9 +50,18 @@ Make your browser height small enough to engage vertical scrolling, then use j/k
 * k next item
 * l next page
 
+h3. Configuration
+
+The config variable in pagingKeys can be used to customize the class to suit your own HTML and CSS selectors.  See the comments alongside each attribute for more information. 
+
+h3. Minimized
+
+The YUI compressor was used to create paging_keys_min.js. pagingKeys can still be configured here, just scan through the code and find the config var.
+
+
 h2. Example Configuration Explanation 
 
-Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner of the page (when javascript is available).  In the example, the "prototype":http://www.prototypejs.org/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
+Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner (when javascript is available).  In the example, the "prototype":http://www.prototypejs.org/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
 
 Have a look at the example html documents and the tests for more information.
 

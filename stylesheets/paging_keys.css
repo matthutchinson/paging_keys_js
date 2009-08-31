@@ -1,17 +1,11 @@
-body {
-	color:#222;
-	font-family:Georgia,serif;
-	font-size:16px;
-	line-height:1.3em;
-}
-
 /* show/hide paging help keys if js available, paging-keys class gets to body by javascript */
 body.paging-keys #paging-nav {
 	display:block;
 }
 
+/* optional styles on floating nav */
 #paging-nav {
-	background:rgba(180,180,180,0.25);
+	background:rgba(180,180,180,0.40);
 	font-size:14px;
 	padding:10px 20px;
 	-moz-border-radius: 8px;
@@ -19,20 +13,71 @@ body.paging-keys #paging-nav {
 	display:none;
 }
 
-/* styles for demo purposes only */
+/* the following styles are for demo purposes only */
+body {
+	background: #E4E3D3; 
+	font: 16px/24px Georgia, "Times New Roman", Times, serif;
+  color: #333;
+	margin:0;
+}
+
+h1 {
+	padding:1em;
+	margin:0;
+	color:#000;
+}
+
+h2 {
+	font: 14px/24px Georgia, "Times New Roman", Times, serif;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	color: #6a6444;
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+	border-bottom: 1px dotted #7E7A41;
+}
+	
+a:visited {
+	color: #666;
+}
+
+a:hover {
+	color: #6C9B48;
+}
+
+.hentry {
+	padding:1em 2em 16em 2em;
+	width:90%;
+	margin:0 auto;
+	background:#FFF;
+}
+
 .pagination {
 	text-align:center;
-	background:#F7F7F7;
+	background:#000;
 	border-top:1px solid #AAA;
 	border-bottom:1px solid #AAA;
 	padding:2em 0;
 	font-size:1.1em;
 	font-weight:bold;
+	margin:0 auto;
+	border-bottom: none;
 }
-.pagination a, .pagination span {
+.pagination a, .pagination span  {
 	padding:0.5em;
+	color:#FFF;
+	border-bottom: 1px dotted #7E7A41;
 }
 
-.hentry {
-	padding-bottom:16em;
+.pagination a {
+border-bottom: none;
+}
+
+.pagination a:hover {
+	color:#999;
 }
