@@ -227,7 +227,14 @@ var pagingKeys = function() {
 	      return false;
 	    }
 
-	    var x = 0, y = p.y;
+			var e = $('post-' + p.id) || $(p.id);
+			var x = 0, y = 0;
+			if (e) {
+			  e.focus();
+			  y = p.y;
+			}
+			else { y = p.y; }
+
 	    window.scrollTo(x, y);
 
 	    if((delta > 0) && (old_y == getScrollTop()))
