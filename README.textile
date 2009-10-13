@@ -52,6 +52,22 @@ h2. Example Configuration Explanation
 Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner of the page (when javascript is available).  In the example, the "prototype":http://www.prototypejs.org/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
 
 Have a look at the example html documents and the tests for more information.
+               
+h2. Why use the 'HJKL' keys?
+    
+Everyone has their own preferences/ideas on which keys work best. I chose what seems to be the accepted default right now and the comments below enforce this point somewhat.
+
+"...because j and k are on the home row. Most keyboards have a little nubbin on the j so you can find it by touch. There’s also some precedent for the pair. j and k move the cursor up and down in vim for example..."
+
+"...Google reader uses the same keys..."
+
+"...The j, k, l, and ; were the movement cursor keys in vi. So you should probably ask Bill Joy. He started this trend 1976..."
+
+"...Earlier computers had no need for arrow keys, so all the basic vi commands use keys you’d find on a very limited keyboard..."
+
+"...But they’re also very nice since it’s where the right hand sits when you’re a touch typist. j and k take almost no effort to type..."
+
+"...page up/down and cursor keys are not always available on every keyboard, or can be hard to find on laptops or shortened keyboards..."
 
 h2. Credits
 
