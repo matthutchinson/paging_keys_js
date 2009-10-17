@@ -4,19 +4,26 @@ h2. About
 
 Keyboard short cuts for paging through listings one item at at time (and across entire pages).  Inspired by the navigation at "FFFFOUND!":http://ffffound.com/
 
-The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses the "prototype":http://www.prototypejs.org/ js library and "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
+The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses either the "prototype":http://www.prototypejs.org/ or "jquery":http://jquery.com/ js libraries and "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
 
-h2. "Demo":http://homebrew.hiddenloop.com/sandbox/paging_keys/example.html
+h2. "Demo":http://homebrew.hiddenloop.com/sandbox/paging_keys/examples/prototype/example.html
 
-Holy explanations Batman!, there is a "working demo here":http://homebrew.hiddenloop.com/sandbox/paging_keys/example.html
+Holy explanations Batman!, there is a "working demo here":http://homebrew.hiddenloop.com/sandbox/paging_keys/examples/prototype/example.html
+
+h2. Latest Changes
+
+* Added "jquery":http://jquery.com/ support thanks to Peter O'Toole ("peteot":http://github.com/peteot)
+* Fixed floating navigation links, (next/prev were linked the wrong way round)
+* Abstracted out library specific javascript functions (e.g. selector etc.)
+* Added some jquery unit testing, and jquery examples
 
 h2. Caveats
 
 Ongoing issues with this script include;
 
-* more testing on different browsers
-* more testing coverage in general
-* only works with prototype library right now (happy to accept patches for others)
+* floating navigation doesn't 'float' in jquery; it should work when setting the css absolute positions
+* needs more testing on different browsers
+* needs more testing coverage in general
 * there are some places where CSS id selectors would suit better over class selectors
 * so far manually tested on the following mac browsers; 
 ** Safari 3/4, FireFox 3/3.5, Opera 9+, Camino 1.6.9
@@ -27,8 +34,7 @@ h3. Requirements
 
 What do you need?
 
-* "prototype":http://www.prototypejs.org/ javascript library (>= 1.6.0.3)
-* "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm (included in paging_keys.js)
+* "prototype":http://www.prototypejs.org/ (>= 1.6.0.3) OR "jquery":http://jquery.com/ (>= 1.3.2)
 * a working keyboard and browser
 * for the example - a sense of "1970's Batman humor":http://adamwest.tripod.com/b-lectur.htm
 
@@ -37,13 +43,13 @@ h3. Using
 To use on your own website, simply;
 
 * markup your entry titles with the following CSS hierarchy; .hentry h2 a.entry-title (the example uses the "hAtom":http://microformats.org/wiki/hatom style)
-* include the prototype library javascript (e.g. from "ajax.googleapis.com":http://code.google.com/apis/ajax/)
-* include the paging_keys.js javascript somewhere on your page
+* include the prototype OR jquery library (e.g. from "ajax.googleapis.com":http://code.google.com/apis/ajax/)
+* include the appropriate paging_keys.js javascript somewhere on your page
 * add pagination html to each page as shown in the example (in "Rails":http://rubyonrails.org/, if you're using "will_paginate":http://wiki.github.com/mislav/will_paginate, you'll get this for free)
 * optionally add the paging-nav element somewhere on each page, and include the CSS for it
 * thats it! 
 
-Make your browser height small enough to engage vertical scrolling, then use j/k to move up/down through listing (and across pagination).  You can also use h/l to move between pages. So;
+Make your browser height small enough to engage vertical scrolling, then use j/k to move up/down through listing (and across the pagination).  You can also use h/l to move between entire pages. So;
 
 * h previous page
 * j previous item
@@ -52,7 +58,7 @@ Make your browser height small enough to engage vertical scrolling, then use j/k
 
 h3. Configuration
 
-The config variable in pagingKeys can be used to customize the class to suit your own HTML and CSS selectors.  See the comments alongside each attribute for more information. 
+The config variable in pagingKeys can be used to customize the class to suit your own HTML/CSS selectors.  See the comments alongside each attribute for more info. 
 
 h3. Minimized
 
@@ -61,7 +67,7 @@ The YUI compressor was used to create paging_keys_min.js. pagingKeys can still b
 
 h2. Example Configuration Explanation 
 
-Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner (when javascript is available).  In the example, the "prototype":http://www.prototypejs.org/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
+Four "micro-formatted":http://microformats.org/ ( "hAtom":http://microformats.org/wiki/hatom ) example pages with pagination links (in the "will_paginate":http://wiki.github.com/mislav/will_paginate style) The example uses the #bottom anchor link on the last post of each page, so paging backwards will start at the bottom and work its way up through the page.  Each example page has an optional paging navigation key at the top right corner (when javascript is available).  In the example the "prototype":http://www.prototypejs.org/ OR "jquery":http://jquery.com/ library is loaded from "ajax.googleapis.com":http://code.google.com/apis/ajax/ (this is a good idea).
 
 Have a look at the example html documents and the tests for more information.
                
@@ -69,11 +75,9 @@ h2. Why use the 'HJKL' keys?
     
 Everyone has their own preferences/ideas on which keys work best. I chose what seems to be the accepted default right now and the comments below enforce this point somewhat.
 
-"...because j and k are on the home row. Most keyboards have a little nubbin on the j so you can find it by touch. There’s also some precedent for the pair. j and k move the cursor up and down in vim for example..."
+"...because j and k are on the home row. Most keyboards have a little nubbin on the j so you can find it by touch. There is also some precedent for the pair. j and k move the cursor up and down in vi for example..."
 
-"...Google reader uses the same keys..."
-
-"...The j, k, l, and ; were the movement cursor keys in vi. So you should probably ask Bill Joy. He started this trend 1976..."
+"...Google reader / Google Mail use the same keys..."
 
 "...Earlier computers had no need for arrow keys, so all the basic vi commands use keys you’d find on a very limited keyboard..."
 
@@ -86,6 +90,7 @@ h2. Credits
 Who's who?
 
 * Authored by "Matthew Hutchinson":http://matthewhutchinson.net
+* Some jQuery work by "Peter O'Toole":http://github.com/peteot
 * Inspired by "FFFFOUND!":http://ffffound.com/ keyboard naviagtion
 * Explained by "Ryan Singer, 37 Signals":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom
 * Includes "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm

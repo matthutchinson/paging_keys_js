@@ -80,11 +80,11 @@ HotKey.prototype.remove = function(key){
 
 var pagingKeys = function() {
 	
-	// nodeSelector,prevPageSelector,nextPageSelector must be a link (since href used)
+	// settings
 	var config = {
-    nodeSelector:        '.hentry h2 a.entry-title',  // used to select each item on the page and place in the map
-    prevPageSelector:    '.prev_page',                // link on this element should always jump to prev page a.prev_page
-		nextPageSelector:    '.next_page',                // link on this element should always jump to next page a.next_page
+    nodeSelector:        '.hentry h2 a.entry-title',  // used to select each item on the page and place in the map (must be a link)
+    prevPageSelector:    '.prev_page',                // link on this element should always jump to prev page a.prev_page (must be a link)
+		nextPageSelector:    '.next_page',                // link on this element should always jump to next page a.next_page (must be a link)
 		pagingNavId:         'paging-nav',                // dom id of the floating page navigation element
 		keyNext:             'j',                         // hot keys used 
 		keyPrev:             'k',
@@ -100,32 +100,80 @@ var pagingKeys = function() {
 	var hot_key         = false;
 	var disable_hot_key = false;
 	
-	// TODO: escape other incompatible browsers
-	function init() {
-	  if (Prototype.Browser.MobileSafari) { return; }
-	  Event.observe(window, 'load', function() { 
-			var b = document.body;
-			b.className = b.className ? b.className + (' '+config.additionalBodyClass) : config.additionalBodyClass;
-			buildItemMap();
-			positionNav();
-			initHotKeys();
-		});
+	// abstraction layer start <modify these methods for other library support>
+	// prototype
+	
+	function windowScrollInit() {
 		Event.observe(window, 'scroll', function() { positionNav(); })
+	}
+	
+	function getWindowBounds() {
+	  return {
+	    'w': document.viewport.getDimensions()['width'],
+	    'h': document.viewport.getDimensions()['height'],
+	    'x': document.viewport.getScrollOffsets()['left'],
+	    'y': document.viewport.getScrollOffsets()['top']
+	  };
+	}
+	
+	function getEl(selector) {
+	 	return $$(selector);
+	}
+	
+	function addItemToMap(n) {
+		var pos = Position.cumulativeOffset(n);
+		item_map.push({id: n.id, y: pos[1] - 20});
+	}
+	
+	function setNavCSS() {
+		$(config.pagingNavId).setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
+	}
+	
+	function getScrollTop() {
+		return document.viewport.getScrollOffsets()['top'];
+	}
+	
+	function isIE() {
+		return Prototype.Browser.IE;
+	}
+	
+	function isWebKit() {
+		return Prototype.Browser.WebKit;
+	}
+	
+	function init() {
+		Event.observe(window, 'load', setupPagingKeys);
+		windowScrollInit();
+	}
+	
+	// abstraction layer end
+	
+	
+	
+	
+	
+	
+	function setupPagingKeys() {
+	  // TODO: escape/return when incompatible browser found
+		var b = document.body;
+		b.className = b.className ? b.className + (' '+config.additionalBodyClass) : config.additionalBodyClass;
+		buildItemMap();
+		positionNav();
+		initHotKeys();
 	}
 	
 	// 'prev' and 'next' are used to identify items and their position in the map
 	function buildItemMap() {
 	  asset_loaded = false;
-	  item_map.clear();
 
-	  if ($$(config.prevPageSelector)[0]) {
-		  if($$(config.prevPageSelector)[0].href)
+	  if (getEl(config.prevPageSelector)[0]) {
+		  if(getEl(config.prevPageSelector)[0].href)
 	     item_map.push({id: 'prev', y: 0});
 	  }
 	  else
 	    item_map.push({id: null, y: 0});
 
-	  var nodes = $$(config.nodeSelector);
+	  var nodes = getEl(config.nodeSelector);
 	  for (var i = 0; i < nodes.length; i++) {
       addItemToMap(nodes[i]);
 	  }
@@ -135,22 +183,17 @@ var pagingKeys = function() {
 	  });
 
 	  var last = item_map.length - 1;
-		if($$(config.nextPageSelector)[0]) {
-	  	if($$(config.nextPageSelector)[0].href)
+		if(getEl(config.nextPageSelector)[0]) {
+	  	if(getEl(config.nextPageSelector)[0].href)
 	    	item_map.push({id: 'next', y: document.body.scrollHeight});
 	  }
 	  asset_loaded = true;
 	}
 	
-	function addItemToMap(n) {
-	  var pos = Position.cumulativeOffset(n);
-	  item_map.push({id: n.id, y: pos[1] - 20});
-	}
-	
 	// optional, repositioning of the floating navigation element
 	function positionNav() {
-		if($(config.pagingNavId))
-			$(config.pagingNavId).setStyle({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
+		if($(config.pagingNavId)) 
+			setNavCSS();
 	}
 
   // enable hotkeys
@@ -171,22 +214,9 @@ var pagingKeys = function() {
 		}
 	}
 
-	function getWindowBounds() {
-	  return {
-	    'w': document.viewport.getDimensions()['width'],
-	    'h': document.viewport.getDimensions()['height'],
-	    'x': document.viewport.getScrollOffsets()['left'],
-	    'y': document.viewport.getScrollOffsets()['top']
-	  };
-	}
-
-	function getScrollTop() {
-		return document.viewport.getScrollOffsets()['top']
-	}
-
 	function redirect(href) {
 		/* fix IE */
-	  if (Prototype.Browser.IE) {
+	  if (isIE()) {
 	    var a = document.createElement('a');
 	    a.style.display = 'none';
 	    a.href = href;
@@ -260,7 +290,7 @@ var pagingKeys = function() {
 	  var sh = document.body.scrollHeight;
 	  var ch = 0;
 
-	  if (Prototype.Browser.WebKit)
+	  if (isWebKit())
 	    ch = window.innerHeight;
 	  else
 	    ch = document.body.clientHeight;
@@ -292,9 +322,9 @@ var pagingKeys = function() {
 	}
 
 	function movePageNext() {
-		if ($$(config.nextPageSelector)[0]) {
-	  	if ($$(config.nextPageSelector)[0].href != null) {
-	    	redirect($$(config.nextPageSelector)[0].href);
+		if (getEl(config.nextPageSelector)[0]) {
+	  	if (getEl(config.nextPageSelector)[0].href != null) {
+	    	redirect(getEl(config.nextPageSelector)[0].href);
 	    	disableHotKeys();
 	    	return true;
 			}
@@ -303,10 +333,12 @@ var pagingKeys = function() {
 	}
 
 	function movePagePrev() {
-	  if ($$(config.prevPageSelector)[0].href != null) {
-	    redirect($$(config.prevPageSelector)[0].href+'#'+config.bottomAnchor);
-	    disableHotKeys();
-	    return true;
+		if (getEl(config.prevPageSelector)[0]) {
+	 	 if (getEl(config.prevPageSelector)[0].href != null) {
+		    redirect(getEl(config.prevPageSelector)[0].href+'#'+config.bottomAnchor);
+		    disableHotKeys();
+		    return true;
+		  }
 	  }
 	  else { return false; }
 	}

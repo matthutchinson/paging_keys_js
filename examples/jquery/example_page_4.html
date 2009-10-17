@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paging Keys - Example Usage</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+  <script src="../../javascripts/jquery/paging_keys.js" type="text/javascript"></script>
+  <link type="text/css" rel="stylesheet" href="../../stylesheets/paging_keys.css">
+</head>
+<body>
+  <h1>Paging Keys - Prototype Example Usage <em>(page 4)</em></h1>
+  
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" class="entry-title" id="post-541" rel="bookmark">Louie the Lilac: &quot;What equipment would you need for your operation?&quot;</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" class="entry-title" id="post-542" rel="bookmark">Bruce: &quot;I&rsquo;ll need two glasses of warm water.&quot;</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" class="entry-title" id="post-543" rel="bookmark">Lotus: &quot;Two glasses of warm water?&quot;</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" class="entry-title" id="post-544" rel="bookmark">Bruce: &quot;Yes, warm water plays a major part in newly perfected animal surgery.&quot;</a>
+    </h2>
+  </div>
+
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" class="entry-title" id="post-545" rel="bookmark">Blaze: &quot;No wonder I&rsquo;m starved, it's after lunch! Oh Batman, would you get me a candy bar please?&quot;</a>
+    </h2>
+  </div>
+  
+  <div class="hentry">                                                                                                                
+    <h2>
+      <a href="#" name="bottom" class="entry-title" id="post-546" rel="bookmark">Batman: &quot;Candy? Actually, fresh fruit is much more healthful.&quot;</a>
+    </h2>
+  </div>
+  
+  <p><div class="pagination"><a href="example_page_3.html" class="disabled prev_page">&laquo; Previous</a> <a href="example.html">1</a> <a href="example_page_2.html">2</a> <a href="example_page_3.html">3</a> <span class="current">4</span> </div></p>
+
+  <div id="paging-nav">
+    <a onclick="pagingKeys.moveToItem(1); return false;" href="javascript:void(0);">next (j)</a> |
+    <a onclick="pagingKeys.moveToItem(-1); return false;" href="javascript:void(0);">prev (k)</a> |
+    <a onclick="pagingKeys.movePage(1); return false;" href="javascript:void(0);">page next (h)</a> |
+    <a onclick="pagingKeys.movePage(-1); return false;" href="javascript:void(0);">page prev (l)</a> 
+  </div>
+</body>
+</html>
