@@ -12,6 +12,7 @@ Holy explanations Batman!, there is a "working demo here":http://homebrew.hidden
 
 h2. Latest Changes
 
+* Fixed floating navigation positioning in "jquery":http://jquery.com/ version (wrong selector doh!)
 * Added "jquery":http://jquery.com/ support thanks to Peter O'Toole ("peteot":http://github.com/peteot)
 * Fixed floating navigation links, (next/prev were linked the wrong way round)
 * Abstracted out library specific javascript functions (e.g. selector etc.)
@@ -21,7 +22,6 @@ h2. Caveats
 
 Ongoing issues with this script include;
 
-* floating navigation doesn't 'float' in jquery; it should work when setting the css absolute positions
 * needs more testing on different browsers
 * needs more testing coverage in general
 * there are some places where CSS id selectors would suit better over class selectors

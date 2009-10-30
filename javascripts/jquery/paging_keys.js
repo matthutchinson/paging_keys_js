@@ -128,7 +128,7 @@ var pagingKeys = function() {
 	}
 	
 	function setNavCSS() {
-		$(config.pagingNavId).css({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
+		$('#'+config.pagingNavId).css({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
 	}
 	
 	function getScrollTop() {
