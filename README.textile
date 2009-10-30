@@ -62,7 +62,7 @@ The config variable in pagingKeys can be used to customize the class to suit you
 
 h3. Minimized
 
-The YUI compressor was used to create paging_keys_min.js. pagingKeys can still be configured here, just scan through the code and find the config var.
+The "YUI compressor":http://developer.yahoo.com/yui/compressor/ has been used successfully to minimise paging_keys.js (a minimised version is NOT included in the release).  All unit tests included run on a non-compressed script.
 
 
 h2. Example Configuration Explanation 
