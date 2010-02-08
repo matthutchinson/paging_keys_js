@@ -51,9 +51,9 @@ To use on your own website, simply;
 
 Make your browser height small enough to engage vertical scrolling, then use j/k to move up/down through listing (and across the pagination).  You can also use h/l to move between entire pages. So;
 
-* h previous page
-* j previous item
-* k next item
+* j next item (down)
+* k prev item (up)
+* h next page 
 * l next page
 
 h3. Configuration
@@ -75,7 +75,7 @@ h2. Why use the 'HJKL' keys?
     
 Everyone has their own preferences/ideas on which keys work best. I chose what seems to be the accepted default right now and the comments below enforce this point somewhat.
 
-"...because j and k are on the home row. Most keyboards have a little nubbin on the j so you can find it by touch. There is also some precedent for the pair. j and k move the cursor up and down in vi for example..."
+"...because j and k are on the home row. Most keyboards have a little nubbin on the j so you can find it by touch. There is also some precedent for the pair. j/k move the cursor down/up in vi for example..."
 
 "...Google reader / Google Mail use the same keys..."
 
