@@ -8,7 +8,7 @@ The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom
 
 h2. "Demo":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html
 
-Holy explanations Batman!, there is a "working demo here":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html
+Holy explanations Batman!, there is a "working (prototype) demo here":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html or you can try the "demo with jQuery":http://hiddenloop.github.com/sandbox/paging_keys/examples/jquery/example.html
 
 h2. Latest Changes
 
