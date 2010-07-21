@@ -6,9 +6,9 @@ Keyboard short cuts for paging through listings one item at at time (and across 
 
 The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses either the "prototype":http://www.prototypejs.org/ or "jquery":http://jquery.com/ js libraries and "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
 
-h2. "Demo":http://homebrew.hiddenloop.com/sandbox/paging_keys/examples/prototype/example.html
+h2. "Demo":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html
 
-Holy explanations Batman!, there is a "working demo here":http://homebrew.hiddenloop.com/sandbox/paging_keys/examples/prototype/example.html
+Holy explanations Batman!, there is a "working demo here":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html
 
 h2. Latest Changes
 
