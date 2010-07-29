@@ -6,9 +6,9 @@ Keyboard short cuts for paging through listings one item at at time (and across 
 
 The example operates on "micro-formatted":http://microformats.org/ html ( "hAtom":http://microformats.org/wiki/hatom ).  The script uses either the "prototype":http://www.prototypejs.org/ or "jquery":http://jquery.com/ js libraries and "hotkey.js":http://la.ma.la/blog/diary_200511041713.htm for key event hooks. Take a look at "this video explanation":http://www.37signals.com/svn/posts/1409-heres-a-demo-of-some-thoughtful-ui-on-ffffoundcom from "Ryan Singer":http://twitter.com/rjs of "37 Signals":http://www.37signals.com
 
-h2. "Demo":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html
+h2. "Demo":http://matthutchinson.github.com/sandbox/paging_keys/examples/prototype/example.html
 
-Holy explanations Batman!, there is a "working (prototype) demo here":http://hiddenloop.github.com/sandbox/paging_keys/examples/prototype/example.html or you can try the "demo with jQuery":http://hiddenloop.github.com/sandbox/paging_keys/examples/jquery/example.html
+Holy explanations Batman!, there is a "working (prototype) demo here":http://matthutchinson.github.com/sandbox/paging_keys/examples/prototype/example.html or you can try the "demo with jQuery":http://matthutchinson.github.com/sandbox/paging_keys/examples/jquery/example.html
 
 h2. Latest Changes
 
@@ -104,4 +104,4 @@ h2. Creative Commons License
 
 <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" /></a>
 
-<span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Paging Keys</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/hiddenloop/paging_keys_js" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.
+<span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Paging Keys</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/matthutchinson/paging_keys_js" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.

@@ -75,8 +75,8 @@ HotKey.prototype.remove = function(key){
 }
 
 
-/* https://github.com/hiddenloop/paging_keys_js - inspired by navigation on ffffound.com UI */
-/* by Matthew Hutchinson - hiddenloop.com */
+/* https://github.com/matthutchinson/paging_keys_js - inspired by navigation on ffffound.com UI */
+/* by Matthew Hutchinson - matthutchinson.net */
 
 var pagingKeys = function() {
 	
