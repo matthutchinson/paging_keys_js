@@ -79,14 +79,14 @@ HotKey.prototype.remove = function(key){
 /* by Matthew Hutchinson - matthutchinson.net */
 
 var pagingKeys = function() {
-	
+
 	// settings
 	var config = {
     nodeSelector:        '.hentry h2 a.entry-title',  // used to select each item on the page and place in the map (must be a link)
     prevPageSelector:    '.prev_page',                // link on this element should always jump to prev page a.prev_page (must be a link)
 		nextPageSelector:    '.next_page',                // link on this element should always jump to next page a.next_page (must be a link)
 		pagingNavId:         'paging-nav',                // dom id of the floating page navigation element
-		keyNext:             'j',                         // hot keys used 
+		keyNext:             'j',                         // hot keys used
 		keyPrev:             'k',
 		keyNextPage:         'h',
 		keyPrevPage:         'l',
@@ -94,21 +94,21 @@ var pagingKeys = function() {
 		additionalBodyClass: 'paging-keys',               // this class is assigned to the page body on load
 		bottomAnchor:        'bottom'                     // the name of the anchor (without #) at end of page, e.g. set on last post on the page
   };
-	
+
 	var item_map        = [];
 	var asset_loaded    = false;
 	var hot_key         = false;
 	var disable_hot_key = false;
-	
+
 	// abstraction layer start <modify these methods for other library support>
 	// jquery
-	
+
 	function windowScrollInit() {
 		$(window).scroll(function () {
       positionNav();
     });
 	}
-	
+
 	function getWindowBounds() {
 		return {
 	    'w': $(window).width(),
@@ -117,40 +117,40 @@ var pagingKeys = function() {
 	    'y': $(window).scrollTop()
 	  };
 	}
-	
+
 	function getEl(selector) {
 		return $(selector);
 	}
-	
+
 	function addItemToMap(n) {
 	  var pos = $(n).offset();
 	  item_map.push({id: n.id, y: Math.round(pos.top) - 20});
 	}
-	
+
 	function setNavCSS() {
 		$('#'+config.pagingNavId).css({ position: 'absolute', right: '10px', top: (getScrollTop()+10)+'px' });
 	}
-	
+
 	function getScrollTop() {
 		return $(window).scrollTop();
 	}
-	
+
 	function isIE() {
 		return $.browser.msie;
 	}
-	
+
 	function isWebKit() {
 		return $.browser.safari;
 	}
-	
+
 	function init() {
 		$(window).load(setupPagingKeys);
 		windowScrollInit();
 	}
-	
+
 	// abstraction layer end
-	
-	
+
+
 	function setupPagingKeys() {
 	  // TODO: escape/return when incompatible browser found
 		var b = document.body;
@@ -159,7 +159,7 @@ var pagingKeys = function() {
 		positionNav();
 		initHotKeys();
 	}
-	
+
 	// 'prev' and 'next' are used to identify items and their position in the map
 	function buildItemMap() {
 	  asset_loaded = false;
@@ -187,10 +187,10 @@ var pagingKeys = function() {
 	  }
 	  asset_loaded = true;
 	}
-	
+
 	// optional, repositioning of the floating navigation element
 	function positionNav() {
-		if($(config.pagingNavId)) 
+		if($(config.pagingNavId))
 			setNavCSS();
 	}
 
@@ -199,7 +199,7 @@ var pagingKeys = function() {
 		try {
 		  hot_key = new HotKey();
 		}
-		catch (e) { 
+		catch (e) {
 		  alert('Oops, paging_keys requires HotKeys.js (http://la.ma.la/blog/diary_200511041713.htm)');
 		  alert(e);
 		}
@@ -252,13 +252,19 @@ var pagingKeys = function() {
 	        movePagePrev();
 	      return false;
 	    }
-			window.scrollTo(0, p.y);
 
-	    if((delta > 0) && (old_y == getScrollTop()))
+	    if((delta > 0) && atBottom()) {
 	      movePage(1);
+	    } else {
+        window.scrollTo(0, p.y);
+      }
 	  }
 	  return true;
 	}
+
+	function atBottom() {
+	  return (getWindowBounds().h + getScrollTop() == document.body.scrollHeight);
+  }
 
 	function currentItem(delta, y) {
 	  if (y == null)
@@ -274,7 +280,7 @@ var pagingKeys = function() {
 
 	  if ((delta < 0 && item_map[p] && item_map[p].y == y) || 0 < delta)
 	    p += delta;
-	  else if (getWindowBounds().h + getScrollTop() == document.body.scrollHeight && 0 < delta)
+	  else if (atBottom() && 0 < delta)
 	    p++;
 
 	  p = Math.max(p, 0);
@@ -340,7 +346,7 @@ var pagingKeys = function() {
 	  }
 	  else { return false; }
 	}
-	
+
 	// return public pointers to the private methods and properties you want to reveal
   return {
     init:init,
