@@ -91,6 +91,7 @@ var pagingKeys = function() {
 		keyNextPage:         'h',
 		keyPrevPage:         'l',
 		keyRefresh:          'r',
+		currentItemClass:    'paging-current',            // optional, class assigned to each element you jump to, set to null or remove to disable
 		additionalBodyClass: 'paging-keys',               // this class is assigned to the page body on load
 		bottomAnchor:        'bottom'                     // the name of the anchor (without #) at end of page, e.g. set on last post on the page
   };
@@ -99,6 +100,7 @@ var pagingKeys = function() {
 	var asset_loaded    = false;
 	var hot_key         = false;
 	var disable_hot_key = false;
+	var currentElement  = null;
 
 	// abstraction layer start <modify these methods for other library support>
 	// prototype
@@ -258,11 +260,20 @@ var pagingKeys = function() {
 	    if((delta > 0) && atBottom()) {
 	      movePage(1);
 	    } else {
+	      if(config.currentItemClass)
+	        toggleCurrentElement(p.id);
         window.scrollTo(0, p.y);
       }
 	  }
 	  return true;
 	}
+
+	function toggleCurrentElement(id) {
+    if(currentElement)
+      currentElement.removeClassName(config.currentItemClass);
+    currentElement = $(id);
+    currentElement.addClassName(config.currentItemClass);
+  }
 
 	function atBottom() {
 	  return (getWindowBounds().h + getScrollTop() == document.body.scrollHeight);

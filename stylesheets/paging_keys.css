@@ -13,6 +13,11 @@ body.paging-keys #paging-nav {
 	display:none;
 }
 
+/* optional style for currently item */
+.paging-current {
+  background: yellow;
+}
+
 /* the following styles are for demo purposes only */
 body {
 	background: #E4E3D3; 
